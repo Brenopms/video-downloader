@@ -5,6 +5,7 @@ import fetch from 'node-fetch';
 import { VideoDownloader } from '../VideoDownloader';
 import { isValidUrl } from '../utils/validators';
 import { Domains } from '../utils/constants';
+import { ensureDirectoryExistence } from '../utils/fileSystem';
 
 export class TikTokVideoDownloader implements VideoDownloader {
     #validateVideo(url: string): void {
@@ -13,22 +14,22 @@ export class TikTokVideoDownloader implements VideoDownloader {
         }
     }
 
-
     async #downloadVideoFromMeta(videoMeta: tikTok.Result, path: string) {
         const videoRequestHeaders = videoMeta?.headers
         const videoUrl = videoMeta?.collector?.[0].videoUrl
 
-        if(!videoRequestHeaders || !videoUrl) {
+        if (!videoRequestHeaders || !videoUrl) {
             throw new Error('Could not Fetch Video Meta')
         }
 
-        const response = await fetch(videoUrl, { 
+        const response = await fetch(videoUrl, {
             headers: {
                 ...videoRequestHeaders
             }
         })
 
-        response.body?.pipe(createWriteStream(path))
+        ensureDirectoryExistence(path)
+        response.body?.pipe(createWriteStream(path, {}))
     }
 
     async downloadVideo(url: string, path: string) {
