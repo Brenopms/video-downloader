@@ -2,13 +2,12 @@ import ytdl from 'ytdl-core';
 import { createWriteStream } from 'fs'
 
 import { VideoDownloader } from '../VideoDownloader';
-import { isValidUrl } from '../utils/validators';
-import { Domains } from '../utils/constants';
+import { isValidUrlString } from '../utils/validators';
 import { ensureDirectoryExistence } from '../utils/fileSystem';
 
 export class YoutubeVideoDownloader implements VideoDownloader {
     #validateVideo(url: string): void {
-        if (!isValidUrl(url, Domains.YOUTUBE) || !ytdl.validateURL(url)) {
+        if (!isValidUrlString(url) || !ytdl.validateURL(url)) {
             throw new Error('Invalid URL')
         }
     }

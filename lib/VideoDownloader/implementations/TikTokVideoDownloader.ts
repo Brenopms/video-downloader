@@ -3,13 +3,12 @@ import { createWriteStream } from 'fs'
 import fetch from 'node-fetch';
 
 import { VideoDownloader } from '../VideoDownloader';
-import { isValidUrl } from '../utils/validators';
-import { Domains } from '../utils/constants';
+import { isValidUrlString } from '../utils/validators';
 import { ensureDirectoryExistence } from '../utils/fileSystem';
 
 export class TikTokVideoDownloader implements VideoDownloader {
     #validateVideo(url: string): void {
-        if (!isValidUrl(url, Domains.TIKTOK)) {
+        if (!isValidUrlString(url)) {
             throw new Error('Invalid URL')
         }
     }
