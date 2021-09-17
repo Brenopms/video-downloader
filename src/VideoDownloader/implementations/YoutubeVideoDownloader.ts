@@ -4,6 +4,7 @@ import { createWriteStream } from 'fs'
 import { VideoDownloader } from '../VideoDownloader';
 import { isValidUrlString } from '../utils/validators';
 import { ensureDirectoryExistence } from '../utils/fileSystem';
+import { downloadFromInfo, getInfo, validateURL } from '../../../lib/ytdl';
 
 export class YoutubeVideoDownloader implements VideoDownloader {
 
@@ -16,7 +17,7 @@ export class YoutubeVideoDownloader implements VideoDownloader {
     }
 
     #validateVideo(url: string): void {
-        if (!isValidUrlString(url) || !ytdl.validateURL(url)) {
+        if (!isValidUrlString(url) || !validateURL(url)) {
             throw new Error('Invalid URL')
         }
     }
@@ -25,9 +26,9 @@ export class YoutubeVideoDownloader implements VideoDownloader {
         this.#validateVideo(url)
         ensureDirectoryExistence(path)
         
-        const videoInfo = await ytdl.getInfo(url)
+        const videoInfo = await getInfo(url)
 
         this.#logVideoInfo(videoInfo)
-        ytdl.downloadFromInfo(videoInfo).pipe(createWriteStream(path))
+        downloadFromInfo(videoInfo).pipe(createWriteStream(path))
     }
 }
