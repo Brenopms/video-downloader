@@ -16,7 +16,6 @@ export class YoutubeVideoDownloader implements VideoDownloader {
     }
 
     #validateVideo(url: string): void {
-        console.log('A')
         if (!isValidUrlString(url) || !ytdl.validateURL(url)) {
             throw new Error('Invalid URL')
         }
@@ -25,7 +24,7 @@ export class YoutubeVideoDownloader implements VideoDownloader {
     async downloadVideo(url: string, path: string) {
         this.#validateVideo(url)
         ensureDirectoryExistence(path)
-
+        
         const videoInfo = await ytdl.getInfo(url)
 
         this.#logVideoInfo(videoInfo)

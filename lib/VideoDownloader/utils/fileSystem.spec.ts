@@ -4,7 +4,7 @@ import { ensureDirectoryExistence } from './fileSystem'
 
 beforeEach(() => {
     jest.mock('path/posix', () => ({
-        dirname: (path: string) => '/mock/path'
+        dirname: (_path: string) => '/mock/path'
     }))
 })
 
