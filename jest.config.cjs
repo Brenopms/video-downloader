@@ -2,6 +2,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
+  cache: false,
   clearMocks: true,
   restoreMocks: true,
   coverageDirectory: "coverage",
@@ -9,7 +10,9 @@ module.exports = {
   watchPathIgnorePatterns: [
     "node_modules"
   ],
-  transformIgnorePatterns: ["node_modules"],
+  transformIgnorePatterns: ["node_modules", "dist"],
+  modulePathIgnorePatterns: ["dist"],
+  testPathIgnorePatterns: ["dist"],
   collectCoverageFrom: [
     "lib/**/*.ts", "!lib/**/index.ts"
   ]
