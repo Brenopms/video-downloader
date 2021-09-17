@@ -1,7 +1,7 @@
 import { Command } from 'commander';
-import { TikTokVideoDownloader } from './lib/VideoDownloader/implementations/TikTokVideoDownloader';
-import { YoutubeVideoDownloader } from './lib/VideoDownloader/implementations/YoutubeVideoDownloader';
-import { VideoFormat } from './lib/VideoDownloader/utils/constants';
+import { TikTokVideoDownloader } from './src/VideoDownloader/implementations/TikTokVideoDownloader';
+import { YoutubeVideoDownloader } from './src/VideoDownloader/implementations/YoutubeVideoDownloader';
+import { VideoFormat } from './src/VideoDownloader/utils/constants';
 
 const DEFAULT_PATH = './downloads/'
 const DEFAULT_NAME = 'video'
